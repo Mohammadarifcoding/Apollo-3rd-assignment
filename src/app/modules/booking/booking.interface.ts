@@ -4,7 +4,7 @@ export type TBooking =  {
     date: string;
     user: Types.ObjectId;
     car: Types.ObjectId;
-    startTime: string;
-    endTime: string;
+    startTime: Date;
+    endTime: Date;
     totalCost: number;
   }
