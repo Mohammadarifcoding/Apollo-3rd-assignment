@@ -21,5 +21,3 @@ const CarSchema = new Schema<TCar>(
     timestamps: true,
   },
 );
-
-export const CarModel = model<TCar>('Car', CarSchema);
