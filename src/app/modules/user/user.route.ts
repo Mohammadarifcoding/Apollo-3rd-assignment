@@ -5,12 +5,15 @@ import { UserValidation } from './user.validation';
 import validateRequest from '../../middlewares/validateRequest';
 
 
-const router = express.Router();
+const Auth = express.Router();
 
-router.post(
-  '/create-student',
+Auth.post(
+  '/signup',
   validateRequest(UserValidation.userValidationSchema),
-  UserControllers.createStudent,
+  UserControllers.createUser,
 );
+Auth.post('/signin',
+  validateRequest(UserValidation.userValidationSchema),
+  UserControllers.createUser,)
 
-export const UserRoutes = router;
+export const AuthRoutes = Auth;

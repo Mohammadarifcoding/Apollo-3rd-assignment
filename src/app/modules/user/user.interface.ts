@@ -6,3 +6,7 @@ export type TUser = {
   phone: string;
   address: string;
 }
+export type TAuth  = {
+  email: string;
+  password:string
+}
