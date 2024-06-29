@@ -10,7 +10,10 @@ const Auth = express.Router();
 Auth.post(
   '/signup',
   validateRequest(UserValidation.userValidationSchema),
-  UserControllers.createStudent,
+  UserControllers.createUser,
 );
+Auth.post('/signin',
+  validateRequest(UserValidation.userValidationSchema),
+  UserControllers.createUser,)
 
 export const AuthRoutes = Auth;

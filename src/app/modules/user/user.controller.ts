@@ -5,9 +5,9 @@ import sendResponse from '../../utils/sendResponse';
 import { UserServices } from './user.service';
 import catchAsync from '../../utils/catchAsync';
 
-const createStudent: RequestHandler = catchAsync(async (req, res) => {
+const createUser: RequestHandler = catchAsync(async (req, res) => {
 
-  const result = await UserServices.createStudentIntoDB(req.body);
+  const result = await UserServices.createUserIntoDB(req.body);
 
   sendResponse(res, {
     success: true,
@@ -17,5 +17,5 @@ const createStudent: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 export const UserControllers = {
-  createStudent,
+  createUser,
 };
