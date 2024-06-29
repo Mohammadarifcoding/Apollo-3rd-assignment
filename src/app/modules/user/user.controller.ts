@@ -6,15 +6,12 @@ import { UserServices } from './user.service';
 import catchAsync from '../../utils/catchAsync';
 
 const createStudent: RequestHandler = catchAsync(async (req, res) => {
-  const { password, student: studentData } = req.body;
 
-  // const zodParsedData = studentValidationSchema.parse(studentData);
-
-  const result = await UserServices.createStudentIntoDB(password, studentData);
+  const result = await UserServices.createStudentIntoDB(req.body);
 
   sendResponse(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: 'Student is created succesfully',
     data: result,
   });
