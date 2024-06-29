@@ -2,7 +2,7 @@ import config from '../../config';
 
 import { TUser } from './user.interface';
 
-import { generateStudentId } from './user.utils';
+// import { generateStudentId } from './user.utils';
 
 const createStudentIntoDB = async (password: string, payload: TUser) => {
   // create a user object
