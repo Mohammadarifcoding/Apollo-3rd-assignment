@@ -11,8 +11,8 @@ const createStudent: RequestHandler = catchAsync(async (req, res) => {
 
   sendResponse(res, {
     success: true,
-    statusCode: httpStatus.OK,
-    message: 'Student is created succesfully',
+    statusCode: httpStatus.CREATED,
+    message: 'User registered successfully',
     data: result,
   });
 });
