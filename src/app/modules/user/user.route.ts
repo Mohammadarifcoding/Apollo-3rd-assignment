@@ -4,7 +4,6 @@ import { UserControllers } from './user.controller';
 import { UserValidation } from './user.validation';
 import validateRequest from '../../middlewares/validateRequest';
 
-
 const Auth = express.Router();
 
 Auth.post(
@@ -12,8 +11,10 @@ Auth.post(
   validateRequest(UserValidation.userValidationSchema),
   UserControllers.createUser,
 );
-Auth.post('/signin',
-  validateRequest(UserValidation.userValidationSchema),
-  UserControllers.createUser,)
+Auth.post(
+  '/signin',
+  validateRequest(UserValidation.AuthValidationSchema),
+  UserControllers.SignInUser,
+);
 
 export const AuthRoutes = Auth;
