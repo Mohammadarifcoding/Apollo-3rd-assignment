@@ -12,7 +12,7 @@ const router = express.Router();
 router.post(
   '/create-student',
   validateRequest(UserValidation.userValidationSchema),
-  UserControllers.createStudent,
+  UserControllers.createUser
 );
 
 export const CarRoutes = router;
