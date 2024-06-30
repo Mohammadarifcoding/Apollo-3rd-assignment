@@ -27,18 +27,31 @@ const GetCar: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const GetCarById:RequestHandler = catchAsync(async(req,res)=>{
-    const {id} = req.params
-    const result = await CarServices.GetCarBasedId(id)
-    sendResponse(res, {
-        success: true,
-        statusCode: httpStatus.OK,
-        message:  "A Car retrieved successfully",
-        data: result,
-      });
-})
+const GetCarById: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await CarServices.GetCarBasedId(id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'A Car retrieved successfully',
+    data: result,
+  });
+});
+
+const DeleteCar: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await CarServices.DeleteCarInToDb(id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Car Deleted successfully',
+    data: result,
+  });
+});
 
 export const CarControllers = {
   createCar,
-  GetCar,GetCarById
+  GetCar,
+  GetCarById,
+  DeleteCar,
 };

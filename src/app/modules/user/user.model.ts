@@ -32,5 +32,19 @@ const userSchema = new Schema<TUser>(
 //   doc.password = '';
 //   next();
 // });
+userSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+userSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+userSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
 
 export const UserModel = model<TUser>('User', userSchema);
