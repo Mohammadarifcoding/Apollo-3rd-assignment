@@ -17,7 +17,19 @@ const createCar: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const GetCar: RequestHandler = catchAsync(async (req, res) => {
+
+    const result = await CarServices.GetAllCarsFromDb();
+  
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Cars retrieved successfully",
+      data: result,
+    });
+  });
+
 
 export const CarControllers = {
-  createCar
+  createCar,GetCar
 };

@@ -14,4 +14,7 @@ router.post(
   validateRequest(CarValidation.CarValidationSchema),
   CarControllers.createCar);
 
+
+  router.get('/',CarControllers.GetCar)
+
 export const CarRoutes = router;

@@ -7,7 +7,10 @@ const CreateCarIntoDb = async(payload:TCar)=>{
  return savedResult
 }
 
-
+const GetAllCarsFromDb = async()=>{
+    const result = await CarModel.find()
+    return result
+}
 export const CarServices = {
-    CreateCarIntoDb
+    CreateCarIntoDb,GetAllCarsFromDb
 }
