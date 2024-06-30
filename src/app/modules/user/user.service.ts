@@ -15,7 +15,8 @@ const createUserIntoDB = async (payload: TUser) => {
 
 const DoingSigninIntoDb = async(payload:TAuth)=>{
   const {email,password} = payload
-  const findUser = await UserModel.find({email:email,password:password})
+  const findUser = await UserModel.find({email:email,password:password}).select('-password')
+  .exec();
   if(!findUser){
     throw new AppError(httpStatus.NOT_FOUND,"Couldn't found the account")
   }
@@ -23,5 +24,5 @@ const DoingSigninIntoDb = async(payload:TAuth)=>{
 }
 
 export const UserServices = {
-  createUserIntoDB,
+  createUserIntoDB,DoingSigninIntoDb
 };

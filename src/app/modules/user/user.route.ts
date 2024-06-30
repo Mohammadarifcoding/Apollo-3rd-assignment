@@ -13,8 +13,8 @@ Auth.post(
 );
 Auth.post(
   '/signin',
-  validateRequest(UserValidation.userValidationSchema),
-  UserControllers.createUser,
+  validateRequest(UserValidation.AuthValidationSchema),
+  UserControllers.SignInUser,
 );
 
 export const AuthRoutes = Auth;

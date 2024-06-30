@@ -16,6 +16,16 @@ const createUser: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+const SignInUser : RequestHandler = catchAsync(async(req,res)=>{
+  const result = await UserServices.DoingSigninIntoDb(req.body)
+  sendResponse(res,{
+    success:true,
+    statusCode:httpStatus.OK,
+    message:"User logged in successfully",
+    data:result
+  })
+})
 export const UserControllers = {
-  createUser,
+  createUser,SignInUser
 };
