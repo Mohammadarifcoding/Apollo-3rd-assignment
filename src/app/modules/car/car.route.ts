@@ -15,5 +15,6 @@ router.post(
 router.get('/', CarControllers.GetCar);
 
 router.get('/:id',CarControllers.GetCarById)
+router.delete('/:id',CarControllers.DeleteCar)
 
 export const CarRoutes = router;
