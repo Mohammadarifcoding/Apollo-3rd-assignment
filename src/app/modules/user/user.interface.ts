@@ -5,6 +5,7 @@ export type TUser = {
   password: string;
   phone: string;
   address: string;
+  isDeleted:boolean 
 }
 export type TAuth  = {
   email: string;
