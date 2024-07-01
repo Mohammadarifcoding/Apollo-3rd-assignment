@@ -21,5 +21,19 @@ const CarSchema = new Schema<TCar>(
     timestamps: true,
   },
 );
+CarSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+CarSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+CarSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
 
 export const CarModel = model<TCar>('Car', CarSchema);
