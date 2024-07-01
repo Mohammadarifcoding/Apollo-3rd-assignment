@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 
 import { TUser } from './user.interface';
+import config from '../../config';
 const userSchema = new Schema<TUser>(
   {
     name: { type: String, required: true },
@@ -33,6 +34,24 @@ const userSchema = new Schema<TUser>(
 //   doc.password = '';
 //   next();
 // });
+userSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this; // doc
+  // hashing password and save into DB
+  let salt =await  bcrypt.genSaltSync(Number(config.bcrypt_salt_rounds))
+  user.password = await bcrypt.hash(
+    user.password,
+    salt,
+  );
+  next();
+});
+
+// // set '' after saving password
+// userSchema.post('save', function (doc, next) {
+//   doc.password = '';
+//   next();
+// });
+
 userSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
