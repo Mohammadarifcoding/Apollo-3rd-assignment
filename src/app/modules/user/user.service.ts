@@ -2,8 +2,11 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { TAuth, TUser } from './user.interface';
 import { UserModel } from './user.model';
+import jwt from 'jsonwebtoken';
 
 import bcrypt, { hash } from 'bcrypt';
+import config from '../../config';
+import { createToken } from './user.utils';
 
 const createUserIntoDB = async (payload: TUser) => {
   const result = await UserModel.create(payload);
@@ -35,8 +38,20 @@ const DoingSigninIntoDb = async (payload: TAuth) => {
     throw new AppError(httpStatus.NOT_FOUND, "Password doesn't matched");
   }
   const { password, ...userWithoutEmail } = findUser.toObject();
+  const jwtPayload = userWithoutEmail;
 
-  return userWithoutEmail;
+  const accessToken = createToken(
+    jwtPayload,
+    config.secret_access_token as string,
+    '1hr',
+  );
+
+  // const refreshToken = createToken(
+  //   jwtPayload,
+  //   config.secret_access_token as string,
+  //   "1hr"
+  // );
+  return { data: userWithoutEmail, token: accessToken };
 };
 
 export const UserServices = {
