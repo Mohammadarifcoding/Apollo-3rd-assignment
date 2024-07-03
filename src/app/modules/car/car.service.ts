@@ -26,8 +26,13 @@ const DeleteCarInToDb = async(id:string)=>{
   const result = await CarModel.findByIdAndUpdate(id,{isDeleted:true} ,{ new: true})
   return result
 }
+
+const UpdateCarIntoDb = async(id:string,payload:Partial<TCar>)=>{
+  const result = await CarModel.findByIdAndUpdate(id,payload,{new:true,runValidators:true})
+  return result
+}
 export const CarServices = {
   CreateCarIntoDb,
   GetCarBasedId,
-  GetAllCarsFromDb,DeleteCarInToDb
+  GetAllCarsFromDb,DeleteCarInToDb,UpdateCarIntoDb
 };

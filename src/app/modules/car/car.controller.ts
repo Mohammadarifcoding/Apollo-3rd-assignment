@@ -49,9 +49,20 @@ const DeleteCar: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const UpdateCar :RequestHandler = catchAsync(async(req,res)=>{
+  const {id} = req.params
+  const result = await CarServices.UpdateCarIntoDb(id,req.body)
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Car updated successfully",
+    data: result,
+  });
+})
+
 export const CarControllers = {
   createCar,
   GetCar,
   GetCarById,
-  DeleteCar,
+  DeleteCar,UpdateCar
 };
