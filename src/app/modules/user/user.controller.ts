@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 
 import {  RequestHandler } from 'express';
-import sendResponse from '../../utils/sendResponse';
+import sendResponse, { sendResponseWithToken } from '../../utils/sendResponse';
 import { UserServices } from './user.service';
 import catchAsync from '../../utils/catchAsync';
 
@@ -19,11 +19,12 @@ const createUser: RequestHandler = catchAsync(async (req, res) => {
 
 const SignInUser : RequestHandler = catchAsync(async(req,res)=>{
   const result = await UserServices.DoingSigninIntoDb(req.body)
-  sendResponse(res,{
+  sendResponseWithToken(res,{
     success:true,
     statusCode:httpStatus.OK,
     message:"User logged in successfully",
-    data:result
+    data:result.data,
+    token:result.token
   })
 })
 export const UserControllers = {
