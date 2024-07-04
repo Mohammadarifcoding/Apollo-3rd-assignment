@@ -18,6 +18,6 @@ router.get('/', CarControllers.GetCar);
 
 router.get('/:id',CarControllers.GetCarById)
 router.delete('/:id',CarControllers.DeleteCar)
-router.put('/:id',validateRequest(CarValidation.UpdateCarValidationSchema),CarControllers.UpdateCar)
+router.put('/:id',auth("admin"),validateRequest(CarValidation.UpdateCarValidationSchema),CarControllers.UpdateCar)
 
 export const CarRoutes = router;
