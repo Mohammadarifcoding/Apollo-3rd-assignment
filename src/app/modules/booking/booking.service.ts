@@ -16,7 +16,13 @@ const CreateBookingIntoDb = async (
 
   return findBooking;
 };
+const GetMyBookingFromDb = async(userId:string)=>{
+    const result = await BookingModel.findOne({user:userId}).populate('user')
+    .populate('car');
+    return result
+
+}
 
 export const BookingServices = {
-  CreateBookingIntoDb,
+  CreateBookingIntoDb,GetMyBookingFromDb
 };

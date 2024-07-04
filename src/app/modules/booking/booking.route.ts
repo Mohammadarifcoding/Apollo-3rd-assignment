@@ -9,11 +9,11 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth("user"),
+  auth('user'),
   validateRequest(BookingValidation.BookingValidationSchema),
- BookingController.CreatieBooking,
+  BookingController.CreateBooking,
 );
-
+router.get('/my-bookings', auth('user'), BookingController.GetMyBooking);
 // router.get('/', CarControllers.GetCar);
 
 // router.get('/:id',CarControllers.GetCarById)
