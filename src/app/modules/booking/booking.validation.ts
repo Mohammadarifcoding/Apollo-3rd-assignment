@@ -5,7 +5,7 @@ const BookingValidationSchema = z.object({
     date: z.string(),
     carId: z.string(),
     startTime: z.string(),
-    endTime: z.string().nullable().default(null),
+    endTime: z.string().nullable().default(null).optional(),
     totalCost: z.number().min(0).default(0),
   }),
 });
