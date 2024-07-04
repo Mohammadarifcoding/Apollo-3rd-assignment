@@ -3,11 +3,10 @@ import { z } from 'zod';
 const BookingValidationSchema = z.object({
   body: z.object({
     date: z.string(),
-    user: z.string(),
-    car: z.string(),
+    carId: z.string(),
     startTime: z.string(),
-    endTime: z.string(),
-    totalCost: z.number().min(0),
+    endTime: z.string().nullable().default(null).optional(),
+    totalCost: z.number().min(0).default(0),
   }),
 });
 
