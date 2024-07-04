@@ -8,3 +8,12 @@ export type TBooking =  {
     endTime: String;
     totalCost: number;
   }
+
+  export type TBookingData = {
+    date: string;
+    user: Types.ObjectId;
+    carId: Types.ObjectId;
+    startTime: String;
+    endTime: String;
+    totalCost: number;
+  }
