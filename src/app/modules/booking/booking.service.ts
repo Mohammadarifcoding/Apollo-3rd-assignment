@@ -23,6 +23,12 @@ const GetMyBookingFromDb = async(userId:string)=>{
 
 }
 
+const GetAllBookingsFromDb= async()=>{
+  const result = await BookingModel.find().populate('user')
+  .populate('car');
+  return result
+}
+
 export const BookingServices = {
-  CreateBookingIntoDb,GetMyBookingFromDb
+  CreateBookingIntoDb,GetMyBookingFromDb,GetAllBookingsFromDb
 };
