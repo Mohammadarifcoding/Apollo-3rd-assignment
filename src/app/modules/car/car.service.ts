@@ -2,6 +2,8 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { TCar } from './car.interface';
 import { CarModel } from './car.model';
+import { TBooking } from '../booking/booking.interface';
+import { BookingModel } from '../booking/booking.model';
 
 const CreateCarIntoDb = async (payload: TCar) => {
   const result = await CarModel.create(payload);
@@ -22,17 +24,39 @@ const GetCarBasedId = async (id: string) => {
   return result;
 };
 
-const DeleteCarInToDb = async(id:string)=>{
-  const result = await CarModel.findByIdAndUpdate(id,{isDeleted:true} ,{ new: true})
-  return result
-}
+const DeleteCarInToDb = async (id: string) => {
+  const result = await CarModel.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    { new: true },
+  );
+  return result;
+};
 
-const UpdateCarIntoDb = async(id:string,payload:Partial<TCar>)=>{
-  const result = await CarModel.findByIdAndUpdate(id,payload,{new:true,runValidators:true})
-  return result
-}
+const UpdateCarIntoDb = async (id: string, payload: Partial<TCar>) => {
+  const result = await CarModel.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+  return result;
+};
+
+const ReturnCarFromDb = async (payload: any) => {
+  const result = await BookingModel.findByIdAndUpdate(
+    payload.bookingId,
+    {
+      endTime: payload.endTime,
+      status: 'available',
+    },
+    { new: true },
+  );
+  return result;
+};
 export const CarServices = {
   CreateCarIntoDb,
   GetCarBasedId,
-  GetAllCarsFromDb,DeleteCarInToDb,UpdateCarIntoDb
+  GetAllCarsFromDb,
+  DeleteCarInToDb,
+  UpdateCarIntoDb,
+  ReturnCarFromDb,
 };

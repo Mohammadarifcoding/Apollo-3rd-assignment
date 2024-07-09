@@ -60,9 +60,20 @@ const UpdateCar :RequestHandler = catchAsync(async(req,res)=>{
   });
 })
 
+const ReturnCar :RequestHandler = catchAsync(async(req,res)=>{
+  const result = await CarServices.ReturnCarFromDb(req.body)
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Car returned successfully",
+    data: result,
+  });
+})
+
 export const CarControllers = {
   createCar,
   GetCar,
   GetCarById,
+  ReturnCar,
   DeleteCar,UpdateCar
 };

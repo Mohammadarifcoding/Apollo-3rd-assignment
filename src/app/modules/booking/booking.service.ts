@@ -23,8 +23,17 @@ const GetMyBookingFromDb = async(userId:string)=>{
 
 }
 
-const GetAllBookingsFromDb= async()=>{
-  const result = await BookingModel.find().populate('user')
+const GetAllBookingsFromDb= async(params:any)=>{
+  const {carId,date} = params
+  console.log(params)
+  const findObj:any = {}
+  if(carId){
+    findObj["car"] = carId
+  }
+  if(date){
+    findObj["date"] = date
+  }
+  const result = await BookingModel.find(findObj).populate('user')
   .populate('car');
   return result
 }
