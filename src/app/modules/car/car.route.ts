@@ -6,7 +6,7 @@ import { CarControllers } from './car.controller';
 import auth from '../../middlewares/auth';
 
 const router = express.Router();
-
+router.put('/carupdate',validateRequest(CarValidation.ReturnCarValidationSchema),CarControllers.ReturnCar);
 router.post(
   '/',
   auth('admin'),
@@ -24,6 +24,8 @@ router.put(
   validateRequest(CarValidation.UpdateCarValidationSchema),
   CarControllers.UpdateCar,
 );
-router.put('/return', auth('admin'), CarControllers.ReturnCar);
+
+
+
 
 export const CarRoutes = router;

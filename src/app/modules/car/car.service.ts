@@ -42,15 +42,25 @@ const UpdateCarIntoDb = async (id: string, payload: Partial<TCar>) => {
 };
 
 const ReturnCarFromDb = async (payload: any) => {
-  const result = await BookingModel.findByIdAndUpdate(
-    payload.bookingId,
+  console.log(payload.bookingId,"f")
+
+  const UpdateData = await BookingModel.find({_id:payload.bookingId}).populate('user')
+  .populate('car');
+    // @ts-ignore
+    console.log(UpdateData[0].car)
+  const UpdateCar = await CarModel.findOneAndUpdate({_id:UpdateData[0].car._id},{status:"unavailable"})
+  const resultdata = await BookingModel.findOneAndUpdate(
+    {_id:payload.bookingId},
     {
       endTime: payload.endTime,
-      status: 'available',
+
     },
     { new: true },
   );
-  return result;
+
+  
+  
+  return {UpdateData,resultdata,UpdateCar};
 };
 export const CarServices = {
   CreateCarIntoDb,

@@ -4,12 +4,14 @@ import validateRequest from '../../middlewares/validateRequest';
 import auth from '../../middlewares/auth';
 import { BookingValidation } from './booking.validation';
 import { BookingController } from './booking.controller';
+import { CarControllers } from '../car/car.controller';
+import { CarValidation } from '../car/car.validation';
 
 const router = express.Router();
 
 router.post(
   '/',
-  auth('user'),
+  auth('user','admin'),
   validateRequest(BookingValidation.BookingValidationSchema),
   BookingController.CreateBooking,
 );
