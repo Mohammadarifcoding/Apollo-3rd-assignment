@@ -61,7 +61,7 @@ const UpdateCar :RequestHandler = catchAsync(async(req,res)=>{
 })
 
 const ReturnCar :RequestHandler = catchAsync(async(req,res)=>{
-  console.log('f')
+  // console.log('f')
   const result = await CarServices.ReturnCarFromDb(req.body)
   // const result = {hello:'f'}
   sendResponse(res, {
