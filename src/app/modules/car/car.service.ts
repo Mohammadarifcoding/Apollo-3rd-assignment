@@ -67,9 +67,10 @@ const ReturnCarFromDb = async (payload: any) => {
     { new: true },
   );
 
-  const findData = await BookingModel.findOne({ _id: payload.bookingId })
+  const findData = await BookingModel.findOne({ _id: payload.bookingId }).populate('user')
+  .populate('car');
 
-  return resultdata;
+  return findData;
 };
 export const CarServices = {
   CreateCarIntoDb,

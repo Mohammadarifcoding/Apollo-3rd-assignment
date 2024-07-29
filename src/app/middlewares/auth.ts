@@ -39,10 +39,11 @@ const auth = (...requiredRoles:TUserRole[]) => {
     }
 
     if(requiredRoles && !requiredRoles.includes(role)){
-      throw new AppError(
-        httpStatus.FORBIDDEN,
-        'You are not authorized',
-      );
+      res.status(401).json({
+        success: false,
+        statusCode: 401,
+        message: "You have no access to this route",
+      })
     }
    // @ts-ignore
     req.user = decoded as JwtPayload
