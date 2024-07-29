@@ -45,27 +45,31 @@ const UpdateCarIntoDb = async (id: string, payload: Partial<TCar>) => {
 const ReturnCarFromDb = async (payload: any) => {
   // console.log(payload.bookingId,"f")
 
-  const UpdateData = await BookingModel.findOne({_id:payload.bookingId}).populate('user')
-  .populate('car');
-    // @ts-ignore
-    if(!UpdateData){
-       throw new AppError(httpStatus.FORBIDDEN,"Coludn't find the booking data")
-    }
-  const money =  CalculateMoney(UpdateData,payload.endTime)
-  const UpdateCar = await CarModel.findOneAndUpdate({_id:UpdateData.car._id},{status:"available"})
+  const UpdateData = await BookingModel.findOne({ _id: payload.bookingId })
+    .populate('user')
+    .populate('car');
+  // @ts-ignore
+  if (!UpdateData) {
+    throw new AppError(httpStatus.FORBIDDEN, "Coludn't find the booking data");
+  }
+  const money = CalculateMoney(UpdateData, payload.endTime);
+  const UpdateCar = await CarModel.findOneAndUpdate(
+    { _id: UpdateData.car._id },
+    { status: 'available' },
+  );
   // console.log(UpdateCar)
   const resultdata = await BookingModel.findOneAndUpdate(
-    {_id:payload.bookingId},
+    { _id: payload.bookingId },
     {
       endTime: payload.endTime,
-
+      totalCost: money,
     },
     { new: true },
   );
 
-  
-  
-  return {UpdateData,resultdata,UpdateCar};
+  const findData = await BookingModel.findOne({ _id: payload.bookingId })
+
+  return resultdata;
 };
 export const CarServices = {
   CreateCarIntoDb,
