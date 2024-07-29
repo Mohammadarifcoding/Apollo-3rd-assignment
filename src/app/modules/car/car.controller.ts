@@ -18,18 +18,29 @@ const createCar: RequestHandler = catchAsync(async (req, res) => {
 
 const GetCar: RequestHandler = catchAsync(async (req, res) => {
   const result = await CarServices.GetAllCarsFromDb();
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: 'Cars retrieved successfully',
-    data: result,
-  });
+  if(result.length >= 1){
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No Data Found',
+      data: result,
+    });
+  }
+  else{
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Cars retrieved successfully',
+      data: result,
+    });
+  }
+  
 });
 
 const GetCarById: RequestHandler = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CarServices.GetCarBasedId(id);
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

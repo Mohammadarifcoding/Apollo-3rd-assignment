@@ -14,6 +14,7 @@ const CreateCarIntoDb = async (payload: TCar) => {
 
 const GetAllCarsFromDb = async () => {
   const result = await CarModel.find();
+
   return result;
 };
 

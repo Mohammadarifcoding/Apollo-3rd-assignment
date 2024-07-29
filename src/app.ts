@@ -22,7 +22,9 @@ const test = (req: Request, res: Response) => {
   res.send(a);
 };
 
-app.get('/', test);
+app.get('/',(req: Request, res: Response) => {
+  res.json({message:"Welcome you to Car rental services backend"});
+} );
 
 app.use(globalErrorHandler);
 

@@ -32,7 +32,7 @@ const CreateBookingIntoDb = async (
   return findBooking;
 };
 const GetMyBookingFromDb = async (userId: string) => {
-  const result = await BookingModel.findOne({ user: userId })
+  const result = await BookingModel.find({ user: userId })
     .populate('user')
     .populate('car');
   return result;
