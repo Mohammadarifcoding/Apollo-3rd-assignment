@@ -19,7 +19,7 @@ const auth = (...requiredRoles:TUserRole[]) => {
       token.slice(7),
       config.secret_access_token as string,
     ) as JwtPayload;
-    const { name, email, role, phone, address, isDeleted, _id } = decoded;
+    const { name, email, role, phone, address, isDeleted} = decoded;
 
     const user = await UserModel.findOne({ email: email });
 
@@ -39,10 +39,11 @@ const auth = (...requiredRoles:TUserRole[]) => {
     }
 
     if(requiredRoles && !requiredRoles.includes(role)){
-      throw new AppError(
-        httpStatus.FORBIDDEN,
-        'You are not authorized',
-      );
+      res.status(401).json({
+        success: false,
+        statusCode: 401,
+        message: "You have no access to this route",
+      })
     }
    // @ts-ignore
     req.user = decoded as JwtPayload

@@ -4,6 +4,7 @@ import { TCar } from './car.interface';
 import { CarModel } from './car.model';
 import { TBooking } from '../booking/booking.interface';
 import { BookingModel } from '../booking/booking.model';
+import CalculateMoney from './car.utils';
 
 const CreateCarIntoDb = async (payload: TCar) => {
   const result = await CarModel.create(payload);
@@ -13,6 +14,7 @@ const CreateCarIntoDb = async (payload: TCar) => {
 
 const GetAllCarsFromDb = async () => {
   const result = await CarModel.find();
+
   return result;
 };
 
@@ -42,15 +44,34 @@ const UpdateCarIntoDb = async (id: string, payload: Partial<TCar>) => {
 };
 
 const ReturnCarFromDb = async (payload: any) => {
-  const result = await BookingModel.findByIdAndUpdate(
-    payload.bookingId,
+  // console.log(payload.bookingId,"f")
+
+  const UpdateData = await BookingModel.findOne({ _id: payload.bookingId })
+    .populate('user')
+    .populate('car');
+  // @ts-ignore
+  if (!UpdateData) {
+    throw new AppError(httpStatus.FORBIDDEN, "Coludn't find the booking data");
+  }
+  const money = CalculateMoney(UpdateData, payload.endTime);
+  const UpdateCar = await CarModel.findOneAndUpdate(
+    { _id: UpdateData.car._id },
+    { status: 'available' },
+  );
+  // console.log(UpdateCar)
+  const resultdata = await BookingModel.findOneAndUpdate(
+    { _id: payload.bookingId },
     {
       endTime: payload.endTime,
-      status: 'available',
+      totalCost: money,
     },
     { new: true },
   );
-  return result;
+
+  const findData = await BookingModel.findOne({ _id: payload.bookingId }).populate('user')
+  .populate('car');
+
+  return findData;
 };
 export const CarServices = {
   CreateCarIntoDb,
