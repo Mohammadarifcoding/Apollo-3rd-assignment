@@ -21,16 +21,17 @@ const GetCar: RequestHandler = catchAsync(async (req, res) => {
   if(result.length >= 1){
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.NOT_FOUND,
-      message: 'No Data Found',
+      statusCode: httpStatus.OK,
+      message: 'Cars retrieved successfully',
       data: result,
     });
   }
   else{
+
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.OK,
-      message: 'Cars retrieved successfully',
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No Data Found',
       data: result,
     });
   }

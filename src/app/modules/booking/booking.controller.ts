@@ -23,15 +23,16 @@ const GetMyBooking = catchAsync(async (req, res) => {
   if (result.length >= 1) {
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.NOT_FOUND,
-      message: 'No Data Found',
+      statusCode: httpStatus.OK,
+      message: 'My Bookings retrieved successfully',
       data: result,
     });
   } else {
+    
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.OK,
-      message: 'My Bookings retrieved successfully',
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No Data Found',
       data: result,
     });
   }
@@ -42,15 +43,16 @@ const GetAllBookings = catchAsync(async (req, res) => {
   if (result.length >= 1) {
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.NOT_FOUND,
-      message: 'No Data Found',
+      statusCode: httpStatus.OK,
+      message: 'Bookings retrieved successfully',
       data: result,
     });
   } else {
+
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.OK,
-      message: 'Bookings retrieved successfully',
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No Data Found',
       data: result,
     });
   }
